@@ -20,6 +20,7 @@ const App = () => {
   const subCategoriesRef = useRef();
   const childCategoriesRef = useRef();
   const subChildCategoriesRef = useRef();
+  const stockRef = useRef();
   const discountPriceRef = useRef();
   const currentPriceRef = useRef();
 
@@ -58,6 +59,7 @@ const App = () => {
       subCategories: subCategoriesRef.current.value,
       childCategories: childCategoriesRef.current.value,
       subChildCategories: subCategoriesRef.current.value,
+      stock: stockRef.current.value,
       discountPrie: discountPriceRef.current.value,
       currentPrice: currentPriceRef.current.value,
     };
@@ -90,6 +92,7 @@ const App = () => {
         subCategoriesRef.current.value = "";
         childCategoriesRef.current.value = "";
         subChildCategoriesRef.current.value = "";
+        stockRef.current.value = "";
         discountPriceRef.current.value = "";
         currentPriceRef.current.value = "";
       }
@@ -319,6 +322,24 @@ const App = () => {
               <option value="canada">Canada</option>
               <option value="usa">USA</option>
             </select>
+          </div>
+        </div>
+
+        {/* product stock */}
+        <div className="row">
+          <div className="col-25">
+            <label htmlFor="stock" className="label-input">
+              Stock
+            </label>
+          </div>
+          <div className="col-75">
+            <input
+              ref={stockRef}
+              type="number"
+              id="stock"
+              name="stock"
+              placeholder="Your product stock.."
+            />
           </div>
         </div>
 
