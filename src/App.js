@@ -6,9 +6,13 @@ const App = () => {
   const [isUploading, setIsUpLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl2, setImageUrl2] = useState("");
+  const [imageUrl3, setImageUrl3] = useState("");
 
   // catch input value by using useRef hook
   const photoRef = useRef();
+  const photoRef2 = useRef();
+  const photoRef3 = useRef();
   const nameRef = useRef();
   const productCodeRef = useRef();
   const descriptionRef = useRef();
@@ -24,17 +28,26 @@ const App = () => {
   const discountPriceRef = useRef();
   const currentPriceRef = useRef();
 
-  // handle image uploader (image upload by api in imgBB)
+  // handle image uploader 1 (image upload by api in imgBB)
   const imageUploadHandler = (e) => {
     setIsUpLoading(true);
     const imageData = new FormData();
-    imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
-    imageData.append("image", photoRef.current.files[0]);
+    const imageData2 = new FormData();
+    const imageData3 = new FormData();
 
+    imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
+    imageData2.set("key", "ca5482cb4e564b594544191602467167"); // set api key
+    imageData3.set("key", "ca5482cb4e564b594544191602467167"); // set api key
+
+    imageData.append("image", photoRef.current.files[0]);
+    imageData2.append("image2", photoRef2.current.files[1]);
+    imageData3.append("image3", photoRef3.current.files[2]);
     axios
-      .post("https://api.imgbb.com/1/upload", imageData)
+      .post("https://api.imgbb.com/1/upload", imageData, imageData2, imageData3)
       .then((res) => {
         setImageUrl(res.data.data.url);
+        setImageUrl2(res.data.data.url);
+        setImageUrl3(res.data.data.url);
         setIsUpLoading(false);
       })
       .catch((error) => {
@@ -42,12 +55,48 @@ const App = () => {
       });
   };
 
+  // // handle image uploader 2 (image upload by api in imgBB)
+  // const imageUploadHandler2 = (e) => {
+  //   setIsUpLoading(true);
+  //   const imageData = new FormData();
+  //   imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
+  //   imageData.append("image", photoRef2.current.files[1]);
+  //   axios
+  //     .post("https://api.imgbb.com/1/upload", imageData)
+  //     .then((res) => {
+  //       setImageUrl2(res.data.data.url);
+  //       setIsUpLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  // // handle image uploader 3 (image upload by api in imgBB)
+  // const imageUploadHandler3 = (e) => {
+  //   setIsUpLoading(true);
+  //   const imageData = new FormData();
+  //   imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
+  //   imageData.append("image", photoRef3.current.files[2]);
+  //   axios
+  //     .post("https://api.imgbb.com/1/upload", imageData)
+  //     .then((res) => {
+  //       setImageUrl3(res.data.data.url);
+  //       setIsUpLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   // handle add service and save at the database
   const handleAddProduct = async (e) => {
     e.preventDefault();
 
     const service = {
       img: imageUrl,
+      img2: imageUrl2,
+      img3: imageUrl3,
       name: nameRef.current.value,
       code: productCodeRef.current.value,
       description: descriptionRef.current.value,
@@ -105,10 +154,10 @@ const App = () => {
     <div className="container">
       <form onSubmit={handleAddProduct}>
         <div className="row">
-          {/* product Image */}
+          {/* product Image 1*/}
           <div className="col-25">
             <label htmlFor="img" className="label-input">
-              Choose a Product photo
+              Choose a Product photo 1
             </label>
           </div>
           <div className="col-75">
@@ -118,6 +167,40 @@ const App = () => {
               type="file"
               id="img"
               name="image"
+              placeholder="Your image.."
+            />
+          </div>
+
+          {/* product Image 2*/}
+          <div className="col-25">
+            <label htmlFor="img2" className="label-input">
+              Choose a Product photo 2
+            </label>
+          </div>
+          <div className="col-75">
+            <input
+              onChange={imageUploadHandler}
+              ref={photoRef2}
+              type="file"
+              id="img2"
+              name="image2"
+              placeholder="Your image.."
+            />
+          </div>
+
+          {/* product Image 3 */}
+          <div className="col-25">
+            <label htmlFor="img3" className="label-input">
+              Choose a Product photo 3
+            </label>
+          </div>
+          <div className="col-75">
+            <input
+              onChange={imageUploadHandler}
+              ref={photoRef3}
+              type="file"
+              id="img3"
+              name="image3"
               placeholder="Your image.."
             />
           </div>
@@ -405,109 +488,3 @@ const App = () => {
 };
 
 export default App;
-
-/* eslint-disable no-undef */
-// import "./App.css";
-// import { useState } from "react";
-// import axios from 'axios';
-
-// function App() {
-//   const [data, setData] = useState([""]);
-//   const [imageURL, setImageUrl] = useState(null);
-
-//   const handleSubmit = () => {};
-
-//   const handleInput = (e) => {
-//     const inputInfo = { ...data };
-//     inputInfo[e.target.name] = e.target.value;
-//     setData(inputInfo);
-//   };
-//   console.log(data);
-
-//     // Handle Image Upload
-//     const handleImageUpload = event =>{
-//       console.log(event.target.files[0]);
-//       const imageData = new FormData();
-//       imageData.set('key', 'a4eb966ac76c6b59719e1a529adae7d6');
-//       imageData.append('image', event.target.files[0]);
-
-//       axios.post('https://api.imgbb.com/1/upload',
-//           imageData)
-//           .then(function (response) {
-//               setImageUrl(response.data.data.display_url);
-//           })
-//           .catch(function (error) {
-//               console.log(error);
-//           });
-
-//   }
-//   return (
-//     <div className="container mt-5">
-//       <form onSubmit={handleSubmit}>
-//         <h5>select your product</h5>
-//         <select
-//           name="product"
-//           className="form-control"
-//           required
-//           onChange={handleInput}
-//         >
-//           <option value=""></option>
-//           <option value="shirt">This is shirt</option>
-//           <option value="pant">this is pant</option>
-//         </select>
-
-//         <h5 className="mt-5">select your categoris</h5>
-//         <select name="categoris" className="form-control" onChange={handleInput}>
-//           <option value=""></option>
-//           <option value="BD">BD</option>
-//           <option value="US">US</option>
-//         </select>
-//         <div className="mt-3 ">
-//           <label htmlhtmlFor="NameInput" className="form-label">
-//             Name
-//           </label>
-//           <input
-//             onChange={handleInput}
-//             type="text"
-//             name="name"
-//             className="form-control"
-//             id="NameInput"
-//             aria-describedby="emailHelp"
-//           />
-//         </div>
-//         <div className="mb-3">
-//           <label htmlhtmlFor="exampleInputEmail1" className="form-label">
-//             Email address
-//           </label>
-//           <input
-//             onChange={handleInput}
-//             type="email"
-//             name="email"
-//             className="form-control"
-//             id="exampleInputEmail1"
-//             aria-describedby="emailHelp"
-//           />
-//         </div>
-//         <div className="mb-3">
-//           <label htmlhtmlFor="priceInput" className="form-label">
-//             Price
-//           </label>
-//           <input
-//             onChange={handleInput}
-//             type="number"
-//             name="price"
-//             className="form-control"
-//             id="priceInput"
-//             aria-describedby="emailHelp"
-//           />
-//         </div>
-//         <input type="file" name="photo" id="" />
-//         <button type="submit" className="btn btn-primary">
-//           Submit
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default App;
