@@ -28,7 +28,7 @@ const App = () => {
   const imageUploadHandler = (e) => {
     setIsUpLoading(true);
     const imageData = new FormData();
-    imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
+    imageData.set("key", "457810a1f87a20efdef196009d316b7a"); // set api key
     imageData.append("image", photoRef.current.files[0]);
 
     axios
