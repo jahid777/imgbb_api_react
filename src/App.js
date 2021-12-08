@@ -11,8 +11,6 @@ const App = () => {
 
   // catch input value by using useRef hook
   const photoRef = useRef();
-  const photoRef2 = useRef();
-  const photoRef3 = useRef();
   const nameRef = useRef();
   const productCodeRef = useRef();
   const descriptionRef = useRef();
@@ -28,26 +26,17 @@ const App = () => {
   const discountPriceRef = useRef();
   const currentPriceRef = useRef();
 
-  // handle image uploader 1 (image upload by api in imgBB)
-  const imageUploadHandler = (e) => {
+  // handle image uploader (image upload by api in imgBB)
+  const imageUploadHandler = (e, setImg) => {
     setIsUpLoading(true);
     const imageData = new FormData();
-    const imageData2 = new FormData();
-    const imageData3 = new FormData();
-
     imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
-    imageData2.set("key", "ca5482cb4e564b594544191602467167"); // set api key
-    imageData3.set("key", "ca5482cb4e564b594544191602467167"); // set api key
-
     imageData.append("image", photoRef.current.files[0]);
-    imageData2.append("image2", photoRef2.current.files[1]);
-    imageData3.append("image3", photoRef3.current.files[2]);
+
     axios
-      .post("https://api.imgbb.com/1/upload", imageData, imageData2, imageData3)
+      .post("https://api.imgbb.com/1/upload", imageData)
       .then((res) => {
-        setImageUrl(res.data.data.url);
-        setImageUrl2(res.data.data.url);
-        setImageUrl3(res.data.data.url);
+        setImg(res.data.data.url);
         setIsUpLoading(false);
       })
       .catch((error) => {
@@ -55,48 +44,12 @@ const App = () => {
       });
   };
 
-  // // handle image uploader 2 (image upload by api in imgBB)
-  // const imageUploadHandler2 = (e) => {
-  //   setIsUpLoading(true);
-  //   const imageData = new FormData();
-  //   imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
-  //   imageData.append("image", photoRef2.current.files[1]);
-  //   axios
-  //     .post("https://api.imgbb.com/1/upload", imageData)
-  //     .then((res) => {
-  //       setImageUrl2(res.data.data.url);
-  //       setIsUpLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  // // handle image uploader 3 (image upload by api in imgBB)
-  // const imageUploadHandler3 = (e) => {
-  //   setIsUpLoading(true);
-  //   const imageData = new FormData();
-  //   imageData.set("key", "ca5482cb4e564b594544191602467167"); // set api key
-  //   imageData.append("image", photoRef3.current.files[2]);
-  //   axios
-  //     .post("https://api.imgbb.com/1/upload", imageData)
-  //     .then((res) => {
-  //       setImageUrl3(res.data.data.url);
-  //       setIsUpLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   // handle add service and save at the database
   const handleAddProduct = async (e) => {
     e.preventDefault();
 
     const service = {
       img: imageUrl,
-      img2: imageUrl2,
-      img3: imageUrl3,
       name: nameRef.current.value,
       code: productCodeRef.current.value,
       description: descriptionRef.current.value,
@@ -154,15 +107,15 @@ const App = () => {
     <div className="container">
       <form onSubmit={handleAddProduct}>
         <div className="row">
-          {/* product Image 1*/}
+          {/* product Image */}
           <div className="col-25">
             <label htmlFor="img" className="label-input">
-              Choose a Product photo 1
+              Choose a Product photo
             </label>
           </div>
           <div className="col-75">
             <input
-              onChange={imageUploadHandler}
+              onChange={imageUploadHandler(setImageUrl)}
               ref={photoRef}
               type="file"
               id="img"
@@ -171,36 +124,24 @@ const App = () => {
             />
           </div>
 
-          {/* product Image 2*/}
-          <div className="col-25">
-            <label htmlFor="img2" className="label-input">
-              Choose a Product photo 2
-            </label>
-          </div>
           <div className="col-75">
             <input
-              onChange={imageUploadHandler}
-              ref={photoRef2}
+              onChange={imageUploadHandler(setImageUrl2)}
+              ref={photoRef}
               type="file"
-              id="img2"
-              name="image2"
+              id="img"
+              name="image"
               placeholder="Your image.."
             />
           </div>
 
-          {/* product Image 3 */}
-          <div className="col-25">
-            <label htmlFor="img3" className="label-input">
-              Choose a Product photo 3
-            </label>
-          </div>
           <div className="col-75">
             <input
-              onChange={imageUploadHandler}
-              ref={photoRef3}
+              onChange={imageUploadHandler(setImageUrl3)}
+              ref={photoRef}
               type="file"
-              id="img3"
-              name="image3"
+              id="img"
+              name="image"
               placeholder="Your image.."
             />
           </div>
