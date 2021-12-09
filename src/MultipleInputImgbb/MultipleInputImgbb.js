@@ -30,6 +30,7 @@ const MultipleInputImgbb = () => {
   // Handle Image Upload (image upload by api in imgBB)
   const imageUploadHandler = (event, setImg) => {
     // console.log(event.target.files[0]);
+
     const imageData = new FormData();
     imageData.set("key", "457810a1f87a20efdef196009d316b7a");
     imageData.append("image", event.target.files[0]);
@@ -75,7 +76,7 @@ const MultipleInputImgbb = () => {
     // add product info at mongodb
     try {
       setMessage("");
-      const url = "https://fierce-river-40368.herokuapp.com/addproduct";
+      const url = "https://fierce-river-40368.herokuapp.com/addService";
       const option = {
         method: "POST",
         body: JSON.stringify(product),
@@ -134,7 +135,7 @@ const MultipleInputImgbb = () => {
               // ref={photoRef2}
               type="file"
               id="img"
-              name="image"
+              name="image2"
               placeholder="Your image.."
             />
           </div>
@@ -145,7 +146,7 @@ const MultipleInputImgbb = () => {
               // ref={photoRef3}
               type="file"
               id="img"
-              name="image"
+              name="image3"
               placeholder="Your image.."
             />
           </div>
