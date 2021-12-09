@@ -8,7 +8,7 @@ function SimpleInputWithSubmission() {
   const handleImageUpload = (event, setImg) => {
     console.log(event.target.files[0]);
     const imageData = new FormData();
-    imageData.set("key", "ca5482cb4e564b594544191602467167");
+    imageData.set("key", "457810a1f87a20efdef196009d316b7a");
     imageData.append("image", event.target.files[0]);
 
     axios

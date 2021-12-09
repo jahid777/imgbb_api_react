@@ -14,12 +14,12 @@ const App = () => {
       <SimpleInputlmgbb />
 
       <h1 style={{ color: "red", textAlign: "center" }}>
-        this is single img input with submission img bb
+        this is simple img input with submission img bb
       </h1>
       <SimpleInputWithSubmission />
 
       <h1 style={{ color: "red", textAlign: "center" }}>
-        this is simple img input for img bb
+        this is single img input for img bb
       </h1>
       <SingleInputImgbb />
 
