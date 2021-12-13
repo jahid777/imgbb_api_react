@@ -65,7 +65,7 @@ const MultipleInputImgbb = () => {
       categories: categoriesRef.current.value,
       subCategories: subCategoriesRef.current.value,
       childCategories: childCategoriesRef.current.value,
-      subChildCategories: subCategoriesRef.current.value,
+      subChildCategories: subChildCategoriesRef.current.value,
       stock: stockRef.current.value,
       discountPrie: discountPriceRef.current.value,
       currentPrice: currentPriceRef.current.value,
